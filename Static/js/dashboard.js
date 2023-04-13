@@ -81,3 +81,4 @@ stateDropdown.on("change", updateChart);
 
 // Initialize the chart with the default state
 updateChart();
+});
