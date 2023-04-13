@@ -1,6 +1,11 @@
 // Get the reference to the dropdown menu
 const stateDropdown = d3.select("#stateDropdown");
 
+// Wrap the entire code in a DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the reference to the dropdown menu
+  const stateDropdown = d3.select("#stateDropdown");
+
 // Function to update the chart based on the selected state
 function updateChart() {
   // Get the currently selected state abbreviation
