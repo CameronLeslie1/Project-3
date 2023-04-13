@@ -3,15 +3,16 @@ async function fetchData(date) {
     const data = await response.json();
     return data;
   }
-  function createDropdown(dates) {
+  function createDropdown() {
     const dropdown = d3.select("#date-dropdown");
   
-    dates.forEach((date) => {
+    for (let date = 1; date <= 420; date++) {
       dropdown.append("option").text(date).property("value", date);
-    });
+    }
   
     dropdown.on("change", updateVisualization);
   }
+  
   async function updateVisualization() {
     const selectedDate = d3.select("#date-dropdown").property("value");
     const data = await fetchData(selectedDate);
@@ -27,17 +28,14 @@ async function fetchData(date) {
     // Visualization code goes here
     // ...
   }
-  async function initDashboard() {
-    // Fetch available dates from the API
-    const datesResponse = await fetch("/api/dates");
-    const dates = await datesResponse.json();
-  
+  function initDashboard() {
     // Create the date dropdown menu
-    createDropdown(dates);
+    createDropdown();
   
     // Update the visualization with the default date
     updateVisualization();
   }
   
   initDashboard();
+  
         
