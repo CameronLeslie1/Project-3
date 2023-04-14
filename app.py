@@ -6,9 +6,21 @@ import pandas as pd
 app = Flask(__name__)
 
 # Set up the SQLite database connection
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///covid_data"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///covid_data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
+# Convert all tables in the database to JSON format
+@app.route("/data")
+def all_data():
+    tables = db.engine.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchall()
+    data = {}
+    for table in tables:
+        table_name = table[0]
+        query = f"SELECT * FROM \"{table_name}\";"
+        df = pd.read_sql_query(query, db.engine)
+        data[table_name] = df.to_dict(orient="records")
+    return jsonify(data)
 
 # Render the index.html page
 @app.route("/")
