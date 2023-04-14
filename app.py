@@ -6,7 +6,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Set up the SQLite database connection
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///covid_data.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///covid_data"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
