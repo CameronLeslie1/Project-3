@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
 @app.route('/data/<state>')
 def get_data(state):
