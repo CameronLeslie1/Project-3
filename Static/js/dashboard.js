@@ -13,13 +13,13 @@ function updateChart() {
   console.log(`Selected state: ${selectedState}`);
 
   // Get the data for the selected state from the Flask API
-  d3.json(`/state_data/${selectedState}`).then(data => {
+  d3.json(`/data/${selectedState}`).then(data => {
     console.log("Fetched data:", data);
     // Prepare the data for the line chart
     const chartData = data.map(d => {
       return {
         date: d.date,
-        cases: d.cumulative_cases
+        cases: d.cases
       };
     });
 
