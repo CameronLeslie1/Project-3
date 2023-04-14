@@ -32,7 +32,7 @@ def get_state_data(state):
     conn = sqlite3.connect('covid.sqlite')
     cursor = conn.cursor()
 
-    query = f'SELECT date, cases FROM "{state} Aggregated";'
+    query = f'SELECT date, cases, hospitalizations, deaths FROM "{state} Aggregated";'
     cursor.execute(query)
     rows = cursor.fetchall()
 
@@ -41,7 +41,7 @@ def get_state_data(state):
 
     data = []
     for row in rows:
-        data.append({'date': row[0], 'cases': row[1]})
+        data.append({'date': row[0], 'cases': row[1], 'hospitalizations': row[2], 'deaths':row[3]})
 
     return(jsonify(data))
 
