@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>State COVID-19 Dashboard</title>
-  <link rel="stylesheet" href="static/css/styles.css">
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-</head>
-
+  <head>
+    <meta charset="UTF-8">
+    <title>COVID-19 Dashboard</title>
+    <!-- Load D3.js library from CDN -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- Load dashboard.js from static folder -->
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+  </head>
+  
 <body>
     <h1>State COVID-19 Dashboard</h1>
     <label for="stateDropdown">Select a state:</label>
