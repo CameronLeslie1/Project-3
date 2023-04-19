@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Create the cases line chart
       const casesSvgWidth = 600;
       const casesSvgHeight = 400;
-      const casesMargin = { top: 20, right: 20, bottom: 30, left: 50 };
+      const casesMargin = { top: 30, right: 30, bottom: 50, left: 100 };
       const casesWidth = casesSvgWidth - casesMargin.left - casesMargin.right;
       const casesHeight = casesSvgHeight - casesMargin.top - casesMargin.bottom;
 
@@ -78,10 +78,33 @@ document.addEventListener("DOMContentLoaded", () => {
       casesG.append("g")
             .call(casesYAxis);
 
+      // Append the chart title
+      casesSvg.append("text")
+        .attr("x", casesSvgWidth / 2)
+        .attr("y", casesMargin.top / 2)
+        .attr("class", "chart-title")
+        .text("Daily Cases");
+
+      // Append the x-axis label
+      casesSvg.append("text")
+        .attr("x", casesMargin.left + casesWidth / 2)
+        .attr("y", casesHeight + casesMargin.bottom / 2 + 40)
+        .attr("class", "axis-label")
+        .text("Days");
+
+      // Append the y-axis label
+      casesSvg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", casesMargin.left / 2 - 10)
+        .attr("x", -casesSvgHeight / 2)
+        .attr("class", "axis-label")
+        .text("Number of Cases");
+
+
       // Create the deaths line chart
       const svgWidth2 = 600;
       const svgHeight2 = 400;
-      const margin2 = { top: 20, right: 20, bottom: 30, left: 50 };
+      const margin2 = { top: 30, right: 30, bottom: 50, left: 100 };
       const width2 = svgWidth2 - margin2.left - margin2.right;
       const height2 = svgHeight2 - margin2.top - margin2.bottom;
       
@@ -131,10 +154,33 @@ document.addEventListener("DOMContentLoaded", () => {
       g2.append("g")
         .call(yAxis2);
 
+      // Append the chart title
+      svg2.append("text")
+      .attr("x", svgWidth2 / 2)
+      .attr("y", margin2.top / 2)
+      .attr("class", "chart-title")
+      .text("Daily Deaths");
+
+      // Append the x-axis label
+      svg2.append("text")
+        .attr("x", margin2.left + width2 / 2)
+        .attr("y", height2 + margin2.bottom / 2 + 40)
+        .attr("class", "axis-label")
+        .text("Days");
+
+      // Append the y-axis label
+      svg2.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin2.left / 2 - 10)
+        .attr("x", -svgHeight2 / 2)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Number of Deaths");
+
       // Create the hospitalizations line chart
       const svgWidth3 = 600;
       const svgHeight3 = 400;
-      const margin3 = { top: 20, right: 20, bottom: 30, left: 50 };
+      const margin3 = { top: 30, right: 30, bottom: 50, left: 100 };
       const width3 = svgWidth3 - margin3.left - margin3.right;
       const height3 = svgHeight3 - margin3.top - margin3.bottom;
       
@@ -183,6 +229,29 @@ document.addEventListener("DOMContentLoaded", () => {
       // Append the y-axis
       g3.append("g")
         .call(yAxis3);
+
+      // Append the chart title
+      svg3.append("text")
+      .attr("x", svgWidth3 / 2)
+      .attr("y", margin3.top / 2)
+      .attr("class", "chart-title")
+      .text("Daily Hospitalizations");
+
+      // Append the x-axis label
+      svg3.append("text")
+        .attr("x", margin3.left + width3 / 2)
+        .attr("y", height3 + margin3.bottom / 2 + 40)
+        .attr("class", "axis-label")
+        .text("Days");
+
+      // Append the y-axis label
+      svg3.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin3.left / 2 - 10)
+        .attr("x", -svgHeight3 / 2)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Number of Hospitlaizations");
 
       });
     }
