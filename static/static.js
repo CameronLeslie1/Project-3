@@ -1,179 +1,153 @@
-// function updateChart() {
-//     d3.json("/data").then(data => 
-//         console.log(data));
-
-
-// }
-var data;
+// Define the data for the first frame
 
 fetch('/dataIL')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        
+        const datetime = data.object1.datetime;
+        const locations = data.object1.state;
+        const value = data.object1.positiveIncrease;
 
-        var chartDiv = document.getElementById('choropleth');
-
-        if (chartDiv) {
-            Plotly.purge(chartDiv, { noUpdate: true });
-
-        }
-
-        // var selectedDate = data[0].datetime;
-
-        var layout = {
-            title: "COVID Cases by Day",
-            geo: {
-                scope: "usa"
-            },
-            sliders: [{
-                steps: [],
-                x: 0.1,
-                len: 0.9,
-                currentvalue: {
-                    xanchor: "right",
-                    prefix: "Date: ",
-                    font: {
-                        color: "#888",
-                        size: 20
-                    }
-                },
-                transition: {
-                    duration: 500,
-                    easing: "cubic-in-out"
-                }
-            }]
-
-        };
-        var dates = [];
-        // console.log('dates', dates);
-        for (var i = 0; i < data.length; i++) {
-            if (dates.indexOf(data[i].datetime) === -1) {
-                dates.push(data[i].datetime);
-            }
-        }
-        dates.sort()
-        console.log(dates);
-        for (var i = 0; i < dates.length; i++) {
-            // console.log('date', date);
-            var date = dates[i];
-            var step = {
-                label: date,
-                method: "update",
-                args: [{
-                    visible: Array(layout.geo.scope.length).fill(false),
-                    type: 'choropleth',
-                    locationmode: 'USA-states',
-                    locations: [],
-                    z: []
-                }]
-            }
-            // console.log(visible);
-            for (var j = 0; j < data.length; j++) {
-                // console.log('datetime', data[j].datetime);
-                if (data[j].datetime === date) {
-                    var stateCode = data[j].state;
-                    var value = data[j].positiveIncrease;
-                    var index = layout.geo.scope.indexOf(stateCode);
-                    // console.log("initial map", stateCode, value, index);
-                    step.args[0].visible[index] = true;
-                    step.args[0].locations.push(stateCode);
-                    step.args[0].z.push(value);
-                }
-            }
-            layout.sliders[0].steps.push(step);
-
-        }
-        console.log('fetch', data)
-        // Get the chart div element
-        var chartDiv = document.getElementById('choropleth');
-
-        // If chart div element exists, destroy the chart using Plotly.purge()
-        if (chartDiv) {
-            Plotly.purge(chartDiv, { noUpdate: true });
-        }
-
-
-        Plotly.newPlot('choropleth', {
-            data: [{
+        var mapData = [
+            {
                 type: 'choropleth',
                 locationmode: 'USA-states',
-                locations: step.args[0].locations,
-                z: step.args[0].z
-            }],
-            layout: layout
-        }).then(function () {
-            var plot = document.getElementById('choropleth');
+                locations: locations,
+                z: value,
+                colorscale: 'Reds',
+                autocolorscale: false,
+                reversescale: false,
+                marker: {
+                    line: {
+                        color: 'rgb(255,255,255)',
+                        width: 2
+                    }
+                },
+                colorbar: {
+                    title: 'Title',
+                    thickness: 10
+                }
+            }
+        ];
 
-            var locations = [];
+        // Define the layout for the slider and the plot
+        var layout = {
+            title: `New Covid Daily Positive Cases on ${data.object1.datetime}`,
+            geo: {
+                scope: 'usa',
+                showlakes: true,
+                lakecolor: 'rgb(255, 255, 255)'
+            },
+            sliders: [
+                {
+                    steps: [
+                        {
+                            method: 'update',
+                            label: data.object1.datetime,
+                            args: [
+                                { z: [data.object1.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object1.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object2.datetime,
+                            args: [
+                                { z: [data.object2.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object2.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object3.datetime,
+                            args: [
+                                { z: [data.object3.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object3.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object4.datetime,
+                            args: [
+                                { z: [data.object4.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object4.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object5.datetime,
+                            args: [
+                                { z: [data.object5.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object5.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object6.datetime,
+                            args: [
+                                { z: [data.object6.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object6.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object7.datetime,
+                            args: [
+                                { z: [data.object7.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object7.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object8.datetime,
+                            args: [
+                                { z: [data.object8.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object8.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object9.datetime,
+                            args: [
+                                { z: [data.object9.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object9.datetime}` }
+                            ]
+                        },
+                        {
+                            method: 'update',
+                            label: data.object10.datetime,
+                            args: [
+                                { z: [data.object10.positiveIncrease] },
+                                { title: `New Covid Daily Positive Cases on ${data.object10.datetime}` }
+                            ]
+                        }
+                    ],
+                    active: 0,
+                    x: 0.1,
+                    len: 0.9,
+                    y: 0,
+                    yanchor: 'top',
+                    pad: { t: 50, b: 10 },
+                    currentvalue: {
+                        visible: true,
+                        prefix: 'Date:',
+                        xanchor: 'right',
+                        font: {
+                            size: 20,
+                            color: '#666'
+                        }
+                    }
+                }
+            ]
+        };
 
-            plot.on('plotly_sliderchange', function (event) {
+        // Plot the initial chart
+        Plotly.newPlot('choropleth', mapData, layout);
 
-                    console.log('slider changed');
+        // Update the chart when the slider is changed
+        document.getElementById('choropleth').on('plotly_sliderchange', function (eventdata) {
+            var currentStep = eventdata.step.label;
+            console.log('Current step:', currentStep);
+        });
 
-                    var selectedDate = event.step.label;
-                    console.log('selectedDate', selectedDate)
-
-                    // var selectedData = data.filter(function (d) {
-                    //     return new Date(d.datetime).getTime() === new Date(selectedDate).getTime()
-                    // });
-                    // console.log("test", selectedData);
-                    // var visible = Array(layout.geo.scope.length).fill(false);
-                    // console.log(visible)
-
-                    // var locations = [];
-                    // var z = [];
-
-                    // console.log(selectedData);
-                    // console.log("scope", layout.geo.scope);
-                    // // console.log(layout.geo.scope.length);
-                    // console.log("stateindex", layout.geo.scope.indexOf(stateCode));
-
-
-
-                    // for (var i = 0; i < selectedData.length;i ++) {
-                    //     // console.log('datetime', data[j].datetime);
-
-                    //         var stateCode = selectedData[i].state;
-                    //         var value = selectedData[i].positiveIncrease;
-                    //         var index = layout.geo.scope.indexOf(stateCode);
-                    //         console.log("map update", stateCode, value, index);
-                    //         locations.push(stateCode);
-                    //         z.push(value);         
-                    // }
-
-                    // var step = {
-                    //     label: selectedDate,
-                    //     method: "update",
-                    //     args: [{
-                    //         visible: Array(layout.geo.scope.length).fill(false),
-                    //         type: 'choropleth',
-                    //         locationmode: 'USA-states',
-                    //         locations: [],
-                    //         z: []
-                    //     }]
-                    // };
-                    // layout.sliders[0].steps.push(step);
-
-
-
-
-
-
-
-                    Plotly.update('choropleth', {
-                        data: [{
-                            visible: Array(layout.geo.scope.length).fill(true),
-                            type: 'choropleth',
-                            locationmode: 'USA-states',
-                            locations: step.args[0].locations,
-                            z: step.args[0].z
-                        }],
-                        layout: layout
-
-                    
-                    });
-                })
-        
-        })
-    });
-
+});

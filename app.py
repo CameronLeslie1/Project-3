@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import json
 import plotly
-
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -19,16 +19,18 @@ def index():
 def get_data():
     conn = sqlite3.connect('covid.sqlite')
     cursor = conn.cursor()
-
-    cursor.execute('SELECT * FROM daily_cases_increase WHERE date > 410')
+    # use WHERE date >= DATEADD(day, -7, GETDATE()) if this were still updating
+    cursor.execute('SELECT * FROM daily_cases_increase WHERE date > 410 ORDER BY datetime')
     rows = cursor.fetchall()
 
     cursor.close()
     conn.close()
-
-    data = []
-    for row in rows:
-        data.append({'date': row[0], 'datetime': row[1], 'state': row[2], 'positive': row[3], 'positiveIncrease': row[4]})
+    data = {}
+    df = pd.DataFrame(rows, columns=['date', 'datetime', 'state', 'positive', 'positiveIncrease'])
+    dates = list(set([row[1] for row in rows]))
+    dates.sort()
+    for i, date in enumerate(dates):
+        data[f'object{i + 1}'] = {'datetime': date, 'date': df[df['datetime'] == date]['date'].tolist(), 'state': df[df['datetime'] == date]['state'].tolist(), 'positive': df[df['datetime'] == date]['positive'].tolist(), 'positiveIncrease': df[df['datetime'] == date]['positiveIncrease'].tolist()}
 
     return(jsonify(data))
 
